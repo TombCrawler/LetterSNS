@@ -1,0 +1,34 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} Lyric {% endblock %}
+
+{% block body%}
+
+<div id="order" style="text-align: center;">
+    <h2  class="page_title">Scan QR to open the letter!</h2>
+    <br>
+  <div class="posts" data-post-id="{{post.id}}">
+      {% if post.image %}   
+         <img src="{{ post.image.url }}">   
+      {% endif %}
+        <img src="{{ post.qr_code.url }}">   
+        <p style="padding: 10px;" id="description" > {{post.create_date}}</p>
+        <!-- {% if user.is_authenticated %}
+        <p>Likes <span class="like-count">{{p.likes.count}}&nbsp;</span>
+          <button class="like-button"><i class="fa fa-heart"></i></button>
+          <button class="unlike-button"><i class="fa fa-heart-broken"></i></button>
+        </p>
+          Liked by:&nbsp;
+          {% for user in p.likes.all %}
+            {{user.username}}
+          {% empty%}
+            Not liked yet
+          {% endfor %}
+        {% endif %} -->
+   </div>
+   <br>
+   <a href="{% url 'allPosts' %}">Back to all letters</a>
+</div>
+
+{% endblock %}

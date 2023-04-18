@@ -1,0 +1,29 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% if user.is_authenticated %}
+    <div class="list">
+      {% for message in messages %}
+        <p class="alert {{message.tags}}">
+          {% if 'safe' in message.tags %}
+            {{ message|safe }}
+          {% else %}
+            {{message}}
+          {% endif %}
+        </p>
+      {% endfor %}
+      <div id="order">
+        <h2>Write letter</h2>
+        <br>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Get QR</button>
+        </form>
+  {% else %}
+     <h2 id="order" style="text-align: center;">Please Login</h2>
+    </div>
+    </div>
+  {% endif %}
+{% endblock %}

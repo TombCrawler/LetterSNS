@@ -1,0 +1,111 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} {{userProfile.user.username}}'s Profile {% endblock %}
+{% block body %}
+<div class="list">
+      <h1 id="order"> {{userProfile.user.username}}'s Profile </h1>
+      {% for message in messages %}
+      <p class="alert {{message.tags}}">
+         {% if 'safe' in message.tags %}
+            {{message|safe}}
+         {% else %}
+            {{message}}
+         {% endif %}
+      </p>
+         {% endfor %}
+      <div class="pt-5 mt-5 pb-5 mb-5">
+        <div class="container">
+          <div class="main-body">
+            <div class="row gutters-sm">
+              <div class="col-md-4 mb-3 follow_box">
+                <div class="card ">
+                  <div class="card-body">
+                    <div class="d-flex flex-column align-items-center text-center">
+                      <div class="mt-3">
+                        <h4>{{ userProfile.username }}</h4>
+                         <!-- Check if the user has the profile pic -->
+                        {% if userProfile.profile_picture %}
+                        <img src="{{userProfile.profile_picture.url}}" alt="User's profile pic" style="width:200px;">
+                       {% else %} 
+                        <img id="noPic" src="/static/network/images/noPic.svg" alt="noPic.image">
+                      {% endif %}  
+                      <p><strong>Bio:</strong> {{userProfile.bio}}</p>
+                        <div class="row">
+                          <b> following : </b>
+                          <p class="text-muted"> {{ userProfile.user.followers.count }} </p>
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <b> followers : </b>
+                          <p class="text-muted"> {{ userProfile.user.following.count }} </p>
+                        </div>
+                        {% if user.is_authenticated %}
+                          {% if user in userProfile.user.following.all %}
+                              <a href="{% url 'followToggle' userProfile.user.username  %}" class="btn btn-primary">Unfollow</a>
+                            {% else %}
+                              <a  href="{% url 'followToggle' userProfile.user.username  %}" class="btn btn-primary"> Follow </a>
+                          {% endif %}
+                            <!-- <button class="btn btn-outline-primary">Message</button> -->
+                        {% else %}
+                          <p class="text-muted"> Please login to follow </p>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      {% for p in posts %}
+          <div class="posts" data-post-id="{{p.id}}">
+            <p class="post_body" >{{p.category}}</p>
+               <img src="{{ p.qr_code.url }}">   
+        
+              <p>{{p.create_date}}</p>
+              <!-- {% if user.is_authenticated %}
+              <p>Likes <span class="like-count">{{p.likes.count}}</span></p>
+              <button class="like-button"><i class="fa fa-heart"></i></button>
+              <button class="unlike-button"><i class="fa fa-heart-broken"></i></button>
+              <br>
+              Liked by:&nbsp;
+              {% for user in p.likes.all %}
+                 {{user.username}}
+              {% empty%}
+                 Not Liked
+              {% endfor %} 
+            {% endif %}-->
+          </div>
+          <br> 
+      {% empty %}
+           No posts
+      {% endfor %}
+
+      <!-- Down below is the paginator -->
+    {% if posts.has_other_pages %}
+      <div class="page_class">
+        <ul class="pagination">
+          {% if posts.has_previous %}
+            <li><a class="page-link" href="?page={{posts.previous_page_number}}">&laquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in posts.paginator.page_range %}
+              {% if posts.number == i %}
+                <li class="page-item active"><span class="page-link" >{{i}}<span class="sr-only">(current)</span></li>
+              {% else %}
+                <li class="page-item" ><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+            <li><a class="page-link" href="?page={{posts.next_page_number}}">&raquo;</a></li>
+          {% else %}
+            <li  class="page-item disabled"><span>&raquo;</span></li>
+          {% endif %}
+        </ul>
+        {% endif %}
+      </div>
+ <a id="back_button" href="{% url 'allPosts' %}">Back to All Posts</a>
+ </div>
+
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends "qr/layout.html"%}
+{% load static %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+<div id="order" style="text-align: center;">
+   <h1 >Category</h1>
+   {% for c in categories %}
+   
+   <h2 ><a href="{% url 'category_detail' c %}">{{c.upper}}</h2></p>
+  
+   {% endfor %}
+   <br>
+   <a href="{% url 'allPosts' %}">All Letters</a>
+
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} All Letters {% endblock %}
+{% block body %}
+    <h2 id="titles">All Letters</h2>
+    <div class="list">
+        {% for message in messages %}
+        <p class="alert {{message.tags}}">
+          {% if 'safe' in message.tags %}
+            {{ message|safe }}
+          {% else %}
+            {{message}}
+          {% endif %}
+        </p>
+        {% endfor %}
+
+
+        {% for p in posts %}
+        <div class="posts" data-post-id="{{p.id}}">
+          <a id="post_name" href="{% url 'profile' p.user.username %}">
+            <strong><p  id="order" style="margin:0;display:inline;float:left">{{p.user.username}}  <a href="{% url 'post' p.id %}"> Open </a></p></strong>
+          </a>
+                <p  id="order"  style="margin:0;display:inline;float:right">{{p.create_date}}</p>
+                <br>  
+                <p  id="order"  class="post_body">Category: {{p.category}}</p>
+              
+          
+              {% if user.is_authenticated %}
+              <p  id="order" style="margin:0;display:inline;float:left">Likes <span class="like-count">{{p.likes.count}}&nbsp;</span>
+                <button class="like-button"><i class="fa fa-heart"></i></button>
+                <button class="unlike-button"><i class="fa fa-heart-broken"></i></button>
+              </p>
+              <p id="order" style="margin:0;display:inline;float:right"> Liked by:&nbsp; 
+                  {% for user in p.likes.all %}
+                      {{user.username}}
+                  {% empty%}
+                      Not liked yet 
+                  {% endfor %}
+                {% endif %}
+            </p>
+        </div>
+        <br>
+        {% empty %}
+          No Posts yet
+        {% endfor %}
+
+
+        <!-- Down below is the paginator -->
+        {% if posts.has_other_pages %}
+      <div id="order" class="page_class"> 
+        <ul class="pagination">
+          {% if posts.has_previous %}
+          <!-- &laquo is the << icon, span is marking -->
+             <li> <a class="page-link" href="?page={{posts.previous_page_number}}">&laquo;</a></li>
+          {% else %}
+             <li  class="page-item disabled"><span>&laquo;</span></li>
+          {% endif %}
+          {% for i in posts.paginator.page_range %}
+              {% if posts.number == i %}
+                <li class="page-item active"> <span class="page-link">{{i}} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+          {% endfor %}
+          {% if posts.has_next %}
+            <li><a class="page-link" href="?page={{posts.next_page_number}}">&raquo;</a></li>
+          {% else %}
+            <li class="page-item disabled"><span>&raquo;</span></li> 
+          {% endif %}  
+        </ul>
+        {% endif %}
+        <a id="order" href="{% url 'index' %}">Back to Main</a> 
+      </div>   
+    </div>
+ 
+ {% endblock %}
+
+ 

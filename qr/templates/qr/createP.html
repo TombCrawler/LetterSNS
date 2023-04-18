@@ -1,0 +1,37 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} Create profile{% endblock %}
+{% block body %}
+
+    <div class="list">
+    {% for message in messages %}
+       <p class="alert {{message.tags}}">
+         {% if 'safe' in message.tags %}
+           {{message|safe}}
+         {% else %}
+            {{message}}
+         {% endif %}
+    {% endfor %}  
+       </p>
+
+     {% if message %}
+        <p>{{message}} </p> 
+   
+     {% else %}
+     <div id="order">
+       <h2>Create Profile</h2>
+       <br>
+       <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+       </form>
+    {% endif %}
+        <br>
+        <a href="{% url 'allPosts' %}">Back to All Posts</a>
+      </div>
+    </div>
+
+{% endblock %}
+

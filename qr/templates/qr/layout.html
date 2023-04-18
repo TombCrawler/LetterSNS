@@ -1,0 +1,79 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title%} LyriQR {% endblock %} </title>
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href='https://fonts.googleapis.com/css?family=Coiny' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="{% static 'qr/arts.css' %}" rel="stylesheet">
+        <script src="{% static 'qr/js/posts.js' %}"></script>
+        <style>
+            img {
+                max-height: 200px;
+            }
+        </style>
+
+    </head>   
+     <body> 
+        <div class="rain">
+        <div class="lightining">
+        <a href="{% url 'index' %}">
+          <h1 id="order" style="color: rgb(248, 242, 242); padding-left: 5px;">QR Letter</h1>
+        </a>
+        <div id="order" style="padding-left: 10px;">
+            {% if user.is_authenticated %}
+             <strong> Signed in as <a href="{% url 'profile' user.username %}">{{ user.username }}</a></strong>
+            {% else %}
+              <p id="order"> Please login</p>
+            {% endif %}
+        </div>
+        <ul class="nav">
+            {% if user.is_authenticated %}
+            <img id="logo"  src="/static/qr/images/penny.svg" alt="l.image">
+               <li class="nav-item">
+                  <a id="order" class="nav-link" href="{% url 'logout' %}">Log out</a>
+               </li>
+               <li class="nav-item">
+                <a  id="order" class="nav-link" href="{% url 'following_page' %}">Following</a>
+               </li>
+               <li class="nav-item">
+                <a  id="order" class="nav-link" href="{% url 'createP' %}">Make Profile</a>
+               </li>
+               <li class="nav-item">
+                <a  id="order" class="nav-link" href="{% url 'allPosts' %}">All Letters</a>
+               </li>
+               <li class="nav-item">
+                <a  id="order" class="nav-link" href="{% url 'category' %}">Category</a>
+               </li>
+               <li id="backup" class="nav-item">
+                <a  id="order" class="nav-link" href="{% url 'backup' %}">Backup Data</a>
+               </li>
+            {% else %}
+          
+            <img id="logo" src="/static/qr/images/penny.svg" alt="l.image">
+               <li class="nav-item">
+                  <a id="order" class="nav-link" href="{% url 'login' %}">Log in</a> 
+               </li>
+               <li class="nav-item">
+                  <a  id="order" class="nav-link" href="{% url 'register' %}">Register</a>
+               </li>
+            {% endif %}
+        </ul>
+        <br>
+        <hr>
+        {% block body%}
+        {% endblock %}
+        
+        <!-- the two divs are for rain and thunder -->
+            </div>
+        </div>
+    </body>
+  
+</html>

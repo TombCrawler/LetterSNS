@@ -1,0 +1,69 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} Following Lyrics{% endblock %}
+{% block body %}
+
+    <br>
+    <h2 id="titles">Following Letters</h2>
+    <div class="list">
+     {% if user.is_authenticated %} 
+         {% for p in posts %}
+         <div class="posts" data-post-id="{{p.id}}">
+                <a id="post_name" href="{% url 'profile' p.user.username %}">
+                    <p> {{p.user.username}} </p>
+                </a>
+                    <p> {{p.body}} </p>
+                    <p> {{p.create_date}} </p>
+                    {% if user.is_authenticated %}
+                    <p>Likes <span class="like-count">{{p.likes.count}}</span></p>
+                    <button class="like-button"><i class="fa fa-heart"></i></button>
+                    <button class="unlike-button"><i class="fa fa-heart-broken"></i></button>
+                    <br>
+                    Liked by:&nbsp;
+                    {% for user in p.likes.all %}
+                       {{user.username}}
+                    {% empty%}
+                       No Liked
+                    {% endfor %}
+                  {% endif %}
+                    
+                </div>
+                
+        {% empty %}
+              <p id="order">You do not follow anybody yet</p>
+              <a id="order" class="back_button" href="{% url 'allPosts' %}">Back to All Letters</a>
+        {% endfor %}  
+        <br>
+
+        <!-- Down below is the paginator -->
+        {% if posts.has_other_pages %}
+        <div class="page_class">
+            <ul class="pagination">
+                {% if posts.has_previous %}
+                  <li><a class="page-link" href="?page={{posts.previous_page_number}}">&laquo;</a></li>
+                {% else %}
+                  <li class="page-item disabled"><span>&laquo;</span></li>
+                {% endif %}
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                      <li class="page-item active"><span class="page-link">{{i}}</span></span></li>
+                    {% else %}
+                      <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if posts.has_next %}
+                  <li><a class="page-link" href="?page={{posts.next_page_number}}">&raquo;</a></li>
+                {% else %}
+                  <li class="page-item disabled"><span>&raquo;</span></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+        <br>
+   
+    {% else %}
+       <p>Please Login</p>
+    {% endif %}
+    </div>
+{% endblock %}

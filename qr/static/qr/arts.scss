@@ -1,0 +1,209 @@
+
+a{
+  color: aliceblue;
+}
+
+.images{
+    width: 100px;
+}
+
+.posts{
+    background-image: 
+        linear-gradient(0.14turn, #0d100d, #050606, #f2c67f);  
+    color: #f2f0eb;
+    display: inline-block;
+    opacity: 0.9;
+  
+}
+
+@media only screen and (max-width: 768px) {
+  .posts {
+    max-width: 90%;
+    margin: 10px auto;
+  }
+}
+
+#logo{
+  width: 90px;
+  padding-left: 10px;
+
+}
+
+#order{
+  color: #eeefef;
+  font-family: fantasy;
+  padding:10px;
+}
+
+.list{
+  text-align: center;
+  position: relative;
+  top: 50px;
+}
+
+.alert {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0px);
+  transition: visibility 0s, opacity 250ms, transform 250ms;
+}
+.alert.hide {
+  position: relative;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px); 
+  transition: visibility 0s 250ms, opacity 250ms, transform 250ms;
+}
+
+.follow_box{
+   position: relative;
+   left: 50%;
+   transform: translateX(-50%);
+   bottom: 65px;
+   
+}
+
+
+.page_class{
+font-size: 30px;
+display: inline-block;
+}
+
+
+#noPic{
+  width: 70px;
+}
+
+#post_name{
+  color: #f6db97;
+}
+
+#titles{
+  text-align: center;
+  position: relative;
+  bottom:10px;  
+  color: #eeefef;
+  font-family: fantasy;
+}
+
+#back_button{
+  position: relative;
+  padding: 10px;
+}
+
+
+// edit
+
+:root {
+  --tweetLight: #1d9bf0;
+  --tweetDark: #147dc2;
+  --tweetDisabled: #8bcdf9;
+  --hover: #eeefef;
+  --lightGray: #536471;
+}
+
+.fa-pen-to-square:hover {
+  color: rgb(15, 13, 13);
+}
+
+.fa-circle-check {
+  color: green;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  color: #f32a2a;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+}
+
+.like-button:hover {
+  color: #ec18ad;
+}
+
+
+.unlike-button {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+}
+
+.unlike-button:hover {
+  color: #110f0f;
+}
+
+// This will set the z-index of all anchor tags within the nav element to 999,
+// which is a higher value than the default z-index of the raining background animation.
+nav a {
+  z-index: 999;
+}
+
+//Below is the BG
+body{
+  margin: 0;
+  padding: 0;
+  background-image: url(https://i.postimg.cc/6Q2Nq7FP/background.jpg);
+  background-size: cover;
+}
+
+
+.rain{
+  height: 100vh;
+  background-image: url(https://i.postimg.cc/XvR6CjbY/rain.png);
+  animation: rain 0.3s linear infinite;
+}
+@keyframes rain {
+  0%{
+      background-position: 0% 0%;
+  }
+  100%{
+      background-position: 20% 100%;
+  }
+}
+.rain::before{
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://i.postimg.cc/xCLDGwfy/lightining.png);
+  top: -100px;
+  transform: rotate(180deg);
+  animation: lightining 4s linear infinite;
+  opacity: 1;
+  pointer-events: none; // the links on your webpage should be clickable again.
+
+}
+@keyframes lightining {
+  0%{
+      opacity: 0;
+  }
+  20%{
+      opacity: 0;
+  }
+  21%{
+      opacity: 1;
+  }
+  25%{
+      opacity: 0;
+  }
+  30%{
+      opacity: 0;
+  }
+  31%{
+      opacity: 1;
+  }
+  35%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 0;
+  }
+}
+
+

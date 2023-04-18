@@ -1,0 +1,29 @@
+{% extends "qr/layout.html"%}
+{% load static %}
+
+{% block title %}Category Details{% endblock %}
+
+{% block body %}
+<div style="text-align: center;">
+   <h2 id="order">Category Details</h2>
+    <h2 id="order">{{category.capitalize}}</h2> 
+     {% if category_listings %}
+        {% for c in category_listings %}
+    <div class="posts">
+        <a href="{% url 'post' c.id %}">
+            <p id="post_name">{{c.user.username}}</p>
+           <p id="post_name">Date: {{c.create_date}} </p>
+        </a>
+    </div>
+         {% endfor %}
+     {% else %}
+        <img src="/static/qr/images/book.svg" style="width: 600px; opacity: 0.9;">
+        <h2 id="order">No letters here</h2>
+
+   {% endif %}
+   <br>
+   <p><a id="order" href="{% url 'category' %}">Back to category</a></p> 
+
+</div>
+{% endblock %}
+

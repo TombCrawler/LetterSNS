@@ -1,0 +1,22 @@
+{% extends "qr/layout.html" %}
+{% load static %}
+
+{% block title %} Watchlist {% endblock %}
+
+{% block body%}
+
+<div>
+    <div style="text-align: center;">
+        <br>
+        <br>
+        <br>
+        <h1 class=""> {{bye_message}}, {{username}}!</h1>     
+        <!-- <img  #id="sleeping" src="/static/qr/images/sleeping.svg" alt="sleeping.image">    -->
+        <p><a href="{% url 'index' %}">Back to top</a></p>
+    </div>
+   
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'qr/BG.js' %}"></script>
+{% endblock %}
